@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Campsites</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Roboto+Slab:wght@100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/styles/page.css" />
+    <link rel="stylesheet" href="/styles/tokens.css" />
+
+    <script>
+        async function loadCampground(url, target) {
+            const res = await fetch(url)
+
+            if (!res.ok) {
+                console.error('Failed to load campground')
+                return
+            }
+
+            const parser = new DOMParser()
+            const html = await res.text()
+
+            const doc = parser.parseFromString(html, 'text/html')
+
+            target.replaceChildren(doc.body)
+
+        }
+    </script>
+</head>
+
+<body>
+    <a href="/">← Back</a>
+
+    <h1>Campsites</h1>
+
+    <h2>New Request</h2>
+
+    <h3>Select an area</h3>
+
+    <header>Las Vegas</header>
+
+
+    <dd class="destination">
+        <h3>
+            <a
+                onclick="loadCampground('campsitePages/redrocks.html', event.target.closest('dd'))">
+                Red Rocks Campground
+            </a>
+        </h3>
+    </dd>
+
+    <a href="campsite.html">Red Rocks Campground</a>
+
+</body>

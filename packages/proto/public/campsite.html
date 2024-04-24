@@ -9,29 +9,45 @@
         rel="stylesheet">
     <link rel="stylesheet" href="/styles/page.css" />
     <link rel="stylesheet" href="/styles/tokens.css" />
+    <script type="module" src="/js/drop-down.js"></script>
+
 </head>
 
 <body>
     <a href="campsites">← Back</a>
-    <h1>Red Rocks Campground</h1>
 
+    <div class="campgroundContainer">
+        <div>
+            <h1>Red Rocks Campground</h1>
+    
+    
+            <h2>Dates Available</h2>
+    
+            <table>
+                <tr>
+                    <th>Campsite</th>
+                    <th>June 1</th>
+                    <th>June 2</th>
+                </tr>
+    
+                <tr>
+                    <td>Site 1</td>
+                    <td>✅</td>
+                    <td>❌</td>
+                </tr>
+    
+                <tr>
+                    <td>Site 2</td>
+                    <td>❌</td>
+                    <td>✅</td>
+                </tr>
+            </table>
+        </div>
 
-    <h2>Dates Available</h2>
+        <div class="map">
+            <img src="/assets/map.png" alt="map of the campground" width="200px" />
+        </div>
+    </div>
+    
 
-    <table>
-        <tr>
-            <th>Date</th>
-            <th>Availability</th>
-        </tr>
-
-        <tr>
-            <td>June 1, 2021</td>
-            <td>Available</td>
-        </tr>
-
-        <tr>
-            <td>June 2, 2021</td>
-            <td>Available</td>
-        </tr>
-    </table>
 </body>

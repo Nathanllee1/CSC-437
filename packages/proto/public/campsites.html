@@ -37,20 +37,35 @@
 
     <h2>New Request</h2>
 
-    <h3>Select an area</h3>
+    <h3>Select a campsite to create a tracker!</h3>
 
-    <header>Las Vegas</header>
+    <h2>Las Vegas</h2>
 
+    <div class="campsites">
+        <div class="campsiteCard">
+            <dd class="destination">
+                <h3>
+                    <a onclick="loadCampground('campsitePages/redrocks.html', event.target.closest('dd'))">
+                        Red Rocks Campground
+                    </a>
+                </h3>
+            </dd>
 
-    <dd class="destination">
-        <h3>
-            <a
-                onclick="loadCampground('campsitePages/redrocks.html', event.target.closest('dd'))">
-                Red Rocks Campground
-            </a>
-        </h3>
-    </dd>
+            <a href="campsite.html">Red Rocks Campground</a>
+        </div>
 
-    <a href="campsite.html">Red Rocks Campground</a>
+        <div class="campsiteCard">
+            <dd class="destination">
+                <h3>
+                    <a onclick="loadCampground('campsitePages/redrocks.html', event.target.closest('dd'))">
+                        Red Rocks Campground
+                    </a>
+                </h3>
+            </dd>
+
+            <a href="campsite.html">Red Rocks Campground</a>
+        </div>
+    </div>
+
 
 </body>

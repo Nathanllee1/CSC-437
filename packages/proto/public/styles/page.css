@@ -43,6 +43,8 @@ button {
     display: flex;
     gap: 10px;
     align-items: center;
+    padding: 1em;
+
 }
 
 .toolbar_title {
@@ -55,3 +57,25 @@ button {
     color: var(--text-color);
 }
 
+.campsites {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+
+.campsiteCard {
+    background-color: white;
+    padding: 1em;
+    border-radius: 4px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.campgroundContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.map {
+    margin-left: auto
+}

@@ -7,9 +7,13 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Roboto+Slab:wght@100..900&display=swap"
         rel="stylesheet">
+
+    <link rel="stylesheet" href="/styles/reset.css" />
+
     <link rel="stylesheet" href="/styles/page.css" />
     <link rel="stylesheet" href="/styles/tokens.css" />
-    
+    <script type="module" src="/scripts/dropdown.js"></script>
+
 </head>
 
 <body>
@@ -17,13 +21,22 @@
         <a class="toolbar_title">Permit Tracker</a>
         <a href="campsites.html">Campsites</a>
 
-        <label
-            onchange="relayEvent(event, 'dark-mode:toggle', { checked: event.target.checked })"
-            "
+        <label onchange="relayEvent(event, 'dark-mode:toggle', { checked: event.target.checked })" "
         >
             <input type="checkbox" autocomplete="off" />
-            Dark mode
+        Dark mode
         </label>
+
+        <drop-down>
+            <div slot="dropdown-name">Profile</div>
+            <div>
+                <a href="profile">Profile</a>
+
+            </div>
+            <div>
+                <a href="trackers">My Trackers</a>
+            </div>
+        </drop-down>
     </header>
 
     <div class="hero">
@@ -42,25 +55,25 @@
 </body>
 
 <script>
-        const page = document.body;
+    const page = document.body;
 
-        function relayEvent(event, customType, detail) {
-            const relay = event.currentTarget;
+    function relayEvent(event, customType, detail) {
+        const relay = event.currentTarget;
 
-            const customEvent = new CustomEvent(customType, {
-                bubbles: true,
-                detail
-            });
-
-            relay.dispatchEvent(customEvent);
-            event.stopPropagation();
-        }
-
-        page.addEventListener('dark-mode:toggle', (event) => {
-            console.log(event)
-            const { checked } = event.detail;
-
-            document.body.classList.toggle('dark-mode', checked);
+        const customEvent = new CustomEvent(customType, {
+            bubbles: true,
+            detail
         });
 
-    </script>
+        relay.dispatchEvent(customEvent);
+        event.stopPropagation();
+    }
+
+    page.addEventListener('dark-mode:toggle', (event) => {
+        console.log(event)
+        const { checked } = event.detail;
+
+        document.body.classList.toggle('dark-mode', checked);
+    });
+
+</script>

@@ -1,0 +1,60 @@
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Roboto+Slab:wght@100..900&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="/styles/reset.css" />
+
+  <link rel="stylesheet" href="/styles/page.css" />
+  <link rel="stylesheet" href="/styles/tokens.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "@calpoly/mustang": "/node_modules/@calpoly/mustang/dist/mustang.mjs"
+      }
+    }
+  </script>
+  <script type="module">
+    import { relayEvent } from "/scripts/relayEvent.js";
+
+    window.relayEvent = relayEvent;
+  </script>
+  <script type="module">
+    import { define, Auth } from "@calpoly/mustang";
+
+    define({ "mu-auth": Auth.Provider });
+  </script>
+  <script type="module" src="/scripts/restful-form.js"></script>
+  <script type="module" src="/scripts/jsonLoader.js"></script>
+</head>
+
+<body>
+  <mu-auth provides="blazing:auth" redirect="../login.html">
+
+    <h1>Trackers</h1>
+
+    <json-object src="/api/trackers/">
+      <a href="#" onclick="relayEvent(event, 'json-object:open')">
+        Trackers
+      </a>
+    </json-object>
+
+    <restful-form path="/api/trackers" src="/api/trackers/78125064-f919-402a-ab82-34a06c25650d">
+      <label>
+        <span>Phone Number</span>
+        <input name="phoneNumber" type="text" />
+      </label>
+      <label>
+        <span>Party Size</span>
+        <input name="partySize" type="email" />
+      </label>
+      <label>
+        <span>Trailhead Id</span>
+        <input name="trailheadId" type="text" />
+      </label>
+    </restful-form>
+
+  </mu-auth>
+</body>

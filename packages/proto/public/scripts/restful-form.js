@@ -2,6 +2,10 @@ import { loadJSON } from "./jsonLoader.js";
 import { prepareTemplate } from "./template.js";
 import { Observer } from "@calpoly/mustang";
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export class RestfulFormElement extends HTMLElement {
   static observedAttributes = ["src", "new"];
 
@@ -89,6 +93,7 @@ export class RestfulFormElement extends HTMLElement {
   _authObserver = new Observer(this, "blazing:auth");
 
   get authorization() {
+    console.log(this._user)
     return (
       this._user?.authenticated && {
         Authorization: `Bearer ${this._user.token}`
@@ -114,8 +119,9 @@ export class RestfulFormElement extends HTMLElement {
     });
   }
 
-  attributeChangedCallback(name, oldValue, newValue) {
+  async attributeChangedCallback(name, oldValue, newValue) {
     console.log(this.authorization)
+    await sleep(2)
     switch (name) {
       case "src":
         if (newValue && newValue !== oldValue && !this.isNew) {

@@ -12,6 +12,23 @@
 
     <link rel="stylesheet" href="/styles/page.css" />
     <link rel="stylesheet" href="/styles/tokens.css" />
+    <script type="importmap">
+        {
+          "imports": {
+            "@calpoly/mustang": "/node_modules/@calpoly/mustang/dist/mustang.mjs"
+          }
+        }
+      </script>
+    <script type="module">
+        import { relayEvent } from "/scripts/relayEvent.js";
+
+        window.relayEvent = relayEvent;
+    </script>
+    <script type="module">
+        import { define, Auth } from "@calpoly/mustang";
+
+        define({ "mu-auth": Auth.Provider });
+    </script>
     <script type="module" src="/scripts/dropdown.js"></script>
 
 </head>
@@ -29,13 +46,21 @@
 
         <drop-down>
             <div slot="dropdown-name">Profile</div>
-            <div>
+            <!--<div>
                 <a href="profile">Profile</a>
-
+            </div> -->
+            <div>
+                <a href="login.html?next=/tracker">Log In</a>
             </div>
             <div>
-                <a href="trackers">My Trackers</a>
+                <a href="tracker">My Trackers</a>
             </div>
+            <div>
+                <a href="#" onclick="relayEvent(event, 'auth:message', ['auth/signout'])">
+                    Sign out
+                </a>
+            </div>
+
         </drop-down>
     </header>
 
@@ -56,18 +81,6 @@
 
 <script>
     const page = document.body;
-
-    function relayEvent(event, customType, detail) {
-        const relay = event.currentTarget;
-
-        const customEvent = new CustomEvent(customType, {
-            bubbles: true,
-            detail
-        });
-
-        relay.dispatchEvent(customEvent);
-        event.stopPropagation();
-    }
 
     page.addEventListener('dark-mode:toggle', (event) => {
         console.log(event)

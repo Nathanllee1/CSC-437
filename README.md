@@ -22,3 +22,14 @@ To run,
 cd packages/proto
 npm run start
 ```
+
+## Assignment 2
+
+Start the server by going to `packages/server` and run `npm run dev`
+
+Most of the labs are under the dropdown Profile. To login, go to the login page and register with the test user.
+
+Username: `nathan6`
+Password: `123`
+
+Then go to the "My Trackers" page and view and edit the tracker.

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Permit Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Roboto+Slab:wght@100..900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="/styles/reset.css" />
+
+    <link rel="stylesheet" href="/styles/page.css" />
+    <link rel="stylesheet" href="/styles/tokens.css" />
+    <script type="module">
+        import { define, Auth, Events } from "@calpoly/mustang";
+        import { HeaderElement } from "/src/components/blazing-header"
+        define({
+            "mu-auth": Auth.Provider,
+            "blazing-header": HeaderElement
+        });
+        window.relayEvent = Events.relay;
+
+    </script>
+
+</head>
+
+<body>
+    <mu-auth provides="blazing:auth" redirect="./login.html">
+
+        <blazing-header>
+            <a href="index.html">Home</a>
+            <a href="campsites.html">Campsites</a>
+            <a href="tracker">My Trackers</a>
+            <a href="login.html">Log In</a>
+        </blazing-header>
+
+        <header class="toolbar">
+            <a class="toolbar_title">Permit Tracker</a>
+            <a href="campsites.html">Campsites</a>
+
+            <label onchange="relayEvent(event, 'dark-mode:toggle', { checked: event.target.checked })">
+                <input type="checkbox" autocomplete="off" />
+                Dark mode
+            </label>
+
+            <drop-down>
+                <div slot="dropdown-name">Profile</div>
+                <!--<div>
+                <a href="profile">Profile</a>
+            </div> -->
+                <div>
+                    <a href="login.html?next=/tracker">Log In</a>
+                </div>
+                <div>
+                    <a href="tracker">My Trackers</a>
+                </div>
+                <div>
+                    <a href="#" onclick="relayEvent(event, 'auth:message', ['auth/signout'])">
+                        Sign out
+                    </a>
+                </div>
+
+            </drop-down>
+        </header>
+
+        <div class="hero">
+            <div class="hero_content">
+                <h1>Permit Tracker</h1>
+                <div>Get notified via SMS when <a href="https://recreation.gov" target="_blank">recreation.gov</a>
+                    permits
+                    become available</div>
+                <br>
+                <a href="campsites.html">Get started today</a>
+            </div>
+
+            <img class="hero_img" src="/assets/mountain.jpeg" alt="mountain" width="400px" />
+        </div>
+
+    </mu-auth>
+</body>
+
+<script>
+    const page = document.body;
+
+    page.addEventListener('dark-mode:toggle', (event) => {
+        console.log(event)
+        const { checked } = event.detail;
+
+        document.body.classList.toggle('dark-mode', checked);
+    });
+
+</script>

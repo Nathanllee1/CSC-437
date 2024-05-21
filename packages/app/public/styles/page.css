@@ -1,0 +1,81 @@
+body {
+    font-family: var(--font-family-body);
+    background-color: var(--color-background-page);
+    color: var(--color-text)
+}
+
+h1 h2 h3 {
+    font-family: var(--font-family-heading);
+}
+
+a {
+    color: var(--primary-color);
+}
+
+.hero {
+    display: flex;
+    justify-content: center;
+    flex-wrap:wrap;
+    gap: 30px;
+    margin-top: 6em;
+}
+
+.hero img {
+    border-radius: 4%;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.hero_content {
+    align-self: center;
+}
+
+
+button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 1em;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.toolbar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 1em;
+
+}
+
+.toolbar_title {
+    color: var(--text-color);
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.toolbar a {
+    color: var(--text-color);
+}
+
+.campsites {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+
+.campsiteCard {
+    background-color: white;
+    padding: 1em;
+    border-radius: 4px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.campgroundContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.map {
+    margin-left: auto
+}

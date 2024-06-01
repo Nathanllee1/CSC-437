@@ -4,6 +4,7 @@ import { connect } from "./mongo";
 import trackers from "./routes/trackers"
 import path from "path";
 import auth, { authenticateUser } from "./routes/auth";
+import fs from "node:fs/promises";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -16,7 +17,12 @@ const nodeModules = path.resolve(
 );
 console.log("Serving NPM packages from", nodeModules);
 app.use("/node_modules", express.static(nodeModules));
-
+app.use("/app", (req: Request, res: Response) => {
+    const indexHtml = path.resolve(staticDir, "index.html");
+    fs.readFile(indexHtml, { encoding: "utf8" }).then((html) =>
+        res.send(html)
+    );
+});
 app.use(express.static(staticDir));
 app.use(json())
 
@@ -26,6 +32,7 @@ app.use("/auth", auth);
 app.get("/hello", (req: Request, res: Response) => {
     res.send("Hello, World");
 });
+
 
 app.listen(port, async () => {
     await connect("permittracker")

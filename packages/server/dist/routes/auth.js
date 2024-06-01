@@ -75,6 +75,18 @@ router.post("/register", (req, res) => {
     });
   }
 });
+router.get("/user/:username", (req, res) => {
+  const username = req.params.username;
+  if (!username) {
+    res.status(400).send("Bad request: Invalid input data.");
+  } else {
+    import_credential_svc.default.get(username).then((creds) => {
+      res.status(200).send(creds);
+    }).catch((error) => {
+      res.status(404).send("Not found");
+    });
+  }
+});
 function authenticateUser(req, res, next) {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];

@@ -105,4 +105,11 @@ function verify(username, password) {
     throw "Invalid username or password";
   });
 }
-var credential_svc_default = { create, verify };
+function get(username) {
+  return __async(this, null, function* () {
+    const user = yield credentialModel.findOne({ username });
+    console.log({ username: user.username });
+    return { username: user.username };
+  });
+}
+var credential_svc_default = { create, verify, get };

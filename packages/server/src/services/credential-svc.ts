@@ -1,9 +1,9 @@
 // src/services/credential-svc.ts
 import bcrypt from "bcryptjs";
 import { Schema, model } from "mongoose";
-import { Credential } from "../models/credential";
+import { User } from "../models/credential";
 
-const credentialSchema = new Schema<Credential>(
+const credentialSchema = new Schema<User>(
     {
         username: {
             type: String,
@@ -18,7 +18,7 @@ const credentialSchema = new Schema<Credential>(
     { collection: "user_credentials" }
 );
 
-const credentialModel = model<Credential>(
+const credentialModel = model<User>(
     "Credential",
     credentialSchema
 );
@@ -29,7 +29,7 @@ async function create(username: string, password: string) {
         throw "must provide username and password";
     }
 
-    const found = await credentialModel.find({ username }) as unknown as Credential[];
+    const found = await credentialModel.find({ username }) as unknown as User[];
 
     if (found.length) throw ("username exists");
 
@@ -50,7 +50,7 @@ async function verify(
     password: string
 ): Promise<string> {
 
-    const found = await credentialModel.find({ username }) as unknown as Credential[];
+    const found = await credentialModel.find({ username }) as unknown as User[];
     if (!found || found.length !== 1)
         throw "Invalid username or password";
 
@@ -65,4 +65,10 @@ async function verify(
     throw "Invalid username or password";
 }
 
-export default { create, verify };
+async function get(username: string) {
+    const user = await credentialModel.findOne({ username }) as unknown as User;
+    console.log({username: user.username})
+    return {username: user.username}
+}
+
+export default { create, verify, get };

@@ -65,6 +65,23 @@ router.post("/register", (req: Request, res: Response) => {
     }
 });
 
+router.get("/user/:username", (req: Request, res: Response) => {
+    const username = req.params.username;
+
+    if (!username) {
+        res.status(400).send("Bad request: Invalid input data.");
+    } else {
+        credentials
+            .get(username)
+            .then((creds) => {
+                res.status(200).send(creds);
+            })
+            .catch((error) => {
+                res.status(404).send("Not found");
+            });
+    }
+});
+
 export function authenticateUser(
     req: Request,
     res: Response,

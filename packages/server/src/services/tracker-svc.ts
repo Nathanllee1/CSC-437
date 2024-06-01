@@ -69,4 +69,10 @@ async function deleteTracker(id: String) {
     await trackerModel.findOneAndDelete({id: deleted.id})
 }
 
-export default {index, get, create, update, deleteTracker}
+async function getTrackers(username: String) {
+    const trackers = await trackerModel.find({userId: username})
+
+    return trackers
+}
+
+export default {index, get, create, update, deleteTracker, getTracker: getTrackers}

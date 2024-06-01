@@ -1,8 +1,23 @@
 import { Router } from "express";
-import tracker from "../services/profile-svc"
-import profileSvc from "../services/profile-svc";
+import tracker from "../services/tracker-svc"
 
 const router = Router();
+
+// Gets trackers for a username
+router.get("/alltrackers/:username", async (req, res) => {
+
+    const { username } = req.params;
+    console.log("Getting trackers for: ", username)
+
+
+    const trackers = await tracker.getTracker(username).catch(err => {
+        console.error(err)
+        res.status(404).send(err)
+    })
+
+    res.json(trackers)
+})
+
 
 router.get("/:trackerid", async (req, res) => {
     const { trackerid } = req.params;
@@ -11,6 +26,7 @@ router.get("/:trackerid", async (req, res) => {
 
     res.json(got[0])
 })
+
 
 router.put("/:trackerid", async (req, res) => {
 
@@ -36,7 +52,7 @@ router.delete("/:trackerid", async (req, res) => {
 router.post("/", async (req, res) => {
     const newProfile = req.body;
 
-    const profile = await profileSvc.create(newProfile).catch(err => {
+    const profile = await tracker.create(newProfile).catch(err => {
         res.status(500).send(err)
     })
 
@@ -45,7 +61,7 @@ router.post("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
 
-    const profiles = await profileSvc.index().catch(err => {
+    const profiles = await tracker.index().catch(err => {
         res.status(500).send(err)
     })
 

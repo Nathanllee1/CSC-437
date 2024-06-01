@@ -36,11 +36,11 @@ var __async = (__this, __arguments, generator) => {
     step((generator = generator.apply(__this, __arguments)).next());
   });
 };
-var profile_svc_exports = {};
-__export(profile_svc_exports, {
-  default: () => profile_svc_default
+var tracker_svc_exports = {};
+__export(tracker_svc_exports, {
+  default: () => tracker_svc_default
 });
-module.exports = __toCommonJS(profile_svc_exports);
+module.exports = __toCommonJS(tracker_svc_exports);
 var import_mongoose = require("mongoose");
 const trackerSchema = new import_mongoose.Schema({
   id: {
@@ -101,10 +101,10 @@ function deleteTracker(id) {
     yield trackerModel.findOneAndDelete({ id: deleted.id });
   });
 }
-function getTracker(username) {
+function getTrackers(username) {
   return __async(this, null, function* () {
     const trackers = yield trackerModel.find({ userId: username });
     return trackers;
   });
 }
-var profile_svc_default = { index, get, create, update, deleteTracker, getTracker };
+var tracker_svc_default = { index, get, create, update, deleteTracker, getTracker: getTrackers };

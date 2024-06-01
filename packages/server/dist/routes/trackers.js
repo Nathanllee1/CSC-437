@@ -52,27 +52,35 @@ __export(trackers_exports, {
 });
 module.exports = __toCommonJS(trackers_exports);
 var import_express = require("express");
-var import_profile_svc = __toESM(require("../services/profile-svc"));
-var import_profile_svc2 = __toESM(require("../services/profile-svc"));
+var import_tracker_svc = __toESM(require("../services/tracker-svc"));
 const router = (0, import_express.Router)();
+router.get("/alltrackers/:username", (req, res) => __async(void 0, null, function* () {
+  const { username } = req.params;
+  console.log("Getting trackers for: ", username);
+  const trackers = yield import_tracker_svc.default.getTracker(username).catch((err) => {
+    console.error(err);
+    res.status(404).send(err);
+  });
+  res.json(trackers);
+}));
 router.get("/:trackerid", (req, res) => __async(void 0, null, function* () {
   const { trackerid } = req.params;
   console.log(trackerid);
-  const got = yield import_profile_svc.default.get(trackerid).catch((err) => {
+  const got = yield import_tracker_svc.default.get(trackerid).catch((err) => {
     res.status(404);
   });
   res.json(got[0]);
 }));
 router.put("/:trackerid", (req, res) => __async(void 0, null, function* () {
   const { trackerid } = req.params;
-  const updated = yield import_profile_svc.default.update(trackerid, req.body).catch((err) => {
+  const updated = yield import_tracker_svc.default.update(trackerid, req.body).catch((err) => {
     res.status(404).send(err);
   });
   res.json(updated);
 }));
 router.delete("/:trackerid", (req, res) => __async(void 0, null, function* () {
   const { trackerid } = req.params;
-  const deleted = yield import_profile_svc.default.deleteTracker(trackerid).catch((err) => {
+  const deleted = yield import_tracker_svc.default.deleteTracker(trackerid).catch((err) => {
     console.error(err);
     res.status(404).send(err);
   });
@@ -80,13 +88,13 @@ router.delete("/:trackerid", (req, res) => __async(void 0, null, function* () {
 }));
 router.post("/", (req, res) => __async(void 0, null, function* () {
   const newProfile = req.body;
-  const profile = yield import_profile_svc2.default.create(newProfile).catch((err) => {
+  const profile = yield import_tracker_svc.default.create(newProfile).catch((err) => {
     res.status(500).send(err);
   });
   res.status(201).send(profile);
 }));
 router.get("/", (req, res) => __async(void 0, null, function* () {
-  const profiles = yield import_profile_svc2.default.index().catch((err) => {
+  const profiles = yield import_tracker_svc.default.index().catch((err) => {
     res.status(500).send(err);
   });
   res.json(profiles);

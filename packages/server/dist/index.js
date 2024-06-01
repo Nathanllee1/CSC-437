@@ -46,6 +46,7 @@ var import_mongo = require("./mongo");
 var import_trackers = __toESM(require("./routes/trackers"));
 var import_path = __toESM(require("path"));
 var import_auth = __toESM(require("./routes/auth"));
+var import_promises = __toESM(require("node:fs/promises"));
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
@@ -55,6 +56,12 @@ const nodeModules = import_path.default.resolve(
 );
 console.log("Serving NPM packages from", nodeModules);
 app.use("/node_modules", import_express.default.static(nodeModules));
+app.use("/app", (req, res) => {
+  const indexHtml = import_path.default.resolve(staticDir, "index.html");
+  import_promises.default.readFile(indexHtml, { encoding: "utf8" }).then(
+    (html) => res.send(html)
+  );
+});
 app.use(import_express.default.static(staticDir));
 app.use((0, import_express.json)());
 app.use("/api/trackers", import_auth.authenticateUser, import_trackers.default);

@@ -1,6 +1,6 @@
-import { LitElement, html } from "lit";
+import {  html } from "lit";
 import { property } from "lit/decorators.js";
-import { flattenedRegion, regions } from "../regions";
+import { flattenedRegion } from "../regions";
 import { Form, History, View, define } from "@calpoly/mustang";
 import { Model } from "../mvu/model";
 import { Msg } from "../mvu/messages";

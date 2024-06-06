@@ -100,6 +100,7 @@ export const regions : {
 export const flattenedRegion: {[key: string]: string} = Object.keys(regions).reduce((acc, region) => {
 
     Object.keys(regions[region].trailheads).forEach(trailhead => {
+        // @ts-ignore
         acc[trailhead] = regions[region].trailheads[trailhead];
     })
 

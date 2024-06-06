@@ -1,4 +1,4 @@
-import { Auth, History, Observer, View } from "@calpoly/mustang";
+import { History, View } from "@calpoly/mustang";
 import { css, html } from "lit";
 import { property } from "lit/decorators.js";
 import { Tracker } from "server/models";

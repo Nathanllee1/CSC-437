@@ -1,4 +1,4 @@
-import { Auth, Form, History, Observer, Rest, View, define } from "@calpoly/mustang";
+import { Form, History, Rest, View, define } from "@calpoly/mustang";
 import { css, html } from "lit";
 import { property } from "lit/decorators.js";
 import { Tracker } from "server/models";
@@ -27,6 +27,7 @@ export class TrackerEdit extends View<Model, Msg> {
 
     console.log(tracker)
 
+    // @ts-ignore
     tracker.dates = new Date(tracker.dates)
     return tracker
   }

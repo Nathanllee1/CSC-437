@@ -1,4 +1,4 @@
-import { LitElement, css, html } from "lit";
+import { css, html } from "lit";
 import { Auth, Dropdown, Observer, View, define } from "@calpoly/mustang";
 import { property } from "lit/decorators.js";
 import { Model } from "../mvu/model";

@@ -2,8 +2,6 @@
 import { Auth, Update } from "@calpoly/mustang";
 import { Msg } from "./messages";
 import { Model } from "./model";
-import { Tracker } from "server/models";
-
 
 export default function update(
     message: Msg,
@@ -138,21 +136,4 @@ export default function update(
             throw "Unknown message type"
 
     }
-}
-
-async function saveTracker(tracker: Tracker, user: Auth.User) {
-
-    const response = await fetch("/api/trackers", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            ...Auth.headers(user),
-        },
-        body: JSON.stringify(tracker),
-    })
-
-    if (!response.ok) {
-        throw "Could not save tracker"
-    }
-
 }

@@ -12,7 +12,7 @@ export class Hero extends LitElement {
                     permits
                     become available</div>
                 <br>
-                <a href="campsites.html">Get started today</a>
+                <a class="button" href="/app/login?next=/app/tracker">Get started today</a>
             </div>
 
             <img class="hero_img" src="/assets/mountain.jpeg" alt="mountain" width="400px" />
@@ -36,6 +36,17 @@ export class Hero extends LitElement {
         
         .hero_content {
             align-self: center;
+        }
+
+        .button {
+            /* Make a green button with white text */
+            background-color: var(--color-primary);
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 5px; 
         }
 
     `

@@ -1,5 +1,5 @@
 import { Auth, Form, History, Observer, Rest, View, define } from "@calpoly/mustang";
-import { html } from "lit";
+import { css, html } from "lit";
 import { property } from "lit/decorators.js";
 import { Tracker } from "server/models";
 import { Model } from "../mvu/model";
@@ -17,9 +17,18 @@ export class TrackerEdit extends View<Model, Msg> {
   get trackers(): Tracker | undefined {
     const allTrackers = this.model.trackers;
 
-    return allTrackers?.filter((tracker) => {
-      return tracker.id === this.trackerId
+    const tracker = allTrackers?.filter((tracker) => {
+      return tracker._id === this.trackerId
     })[0]
+
+    if (!tracker) {
+      return undefined
+    }
+
+    console.log(tracker)
+
+    tracker.dates = new Date(tracker.dates)
+    return tracker
   }
 
   @property({ attribute: "tracker", reflect: true })
@@ -55,25 +64,37 @@ export class TrackerEdit extends View<Model, Msg> {
     super("blazing:model");
   }
 
+  static styles = css`
+
+    form {
+      display: block
+    }
+
+    span {
+      margin-bottom: 5px
+    }
+
+  `
+
   render() {
     return html`
-            <h2>Edit Tracker</h2>
-            <mu-form .init=${this.trackers} @mu-form:submit=${this._handleSubmit}>
-              <label>
-                <span>Phone Number</span>
-                <input name="phoneNumber" />
-              </label>
-              <label>
-                <span>Party Size</span>
-                <input name="partySize" />
-              </label>
-              <label>
-                <span>Trailhead ID</span>
-                <input name="trailheadId" />
+      <h2>Edit Tracker</h2>
+      <mu-form .init=${this.trackers} @mu-form:submit=${this._handleSubmit}>
+        <label>
+          <span>Phone Number</span>
+          <input name="phoneNumber" />
+        </label>
+        <label>
+          <span>Party Size</span>
+          <input name="partySize" />
+        </label>
+        <label>
+          <span>Date</span>
+          <input name="dates" type="date" />
+        </label>
 
-                </label>
-            </mu-form>
-        `
+      </mu-form>
+    `
   }
 
 }

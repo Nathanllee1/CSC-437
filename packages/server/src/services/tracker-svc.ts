@@ -3,11 +3,6 @@ import { Schema, Model, Document, model } from "mongoose";
 
 
 const trackerSchema = new Schema<Tracker>({
-    id: {
-        type: String,
-        required: true,
-        trim: true
-    },
     userId: {
         type: String,
         required: true,
@@ -17,7 +12,7 @@ const trackerSchema = new Schema<Tracker>({
         type: String,
         required: true
     },
-    dates: [String],
+    dates: String,
     partySize: {
         type: Number,
         required: true
@@ -32,7 +27,8 @@ function index() {
 }
 
 async function get(id: string) {
-    const list = await trackerModel.find({id}).catch(err => {
+
+    const list = await trackerModel.findById(id).catch(err => {
         throw `${id} Not found`
     })
 
@@ -47,11 +43,11 @@ function create(tracker: Tracker) {
 
 async function update(id: String, tracker: Tracker) {
 
-    const found = await trackerModel.findOne({ id })
+    const found = await trackerModel.findById(id)
 
     if (!found) throw `${id} not found`
 
-    const updated = await trackerModel.findOneAndUpdate({id}, tracker, {
+    const updated = await trackerModel.findByIdAndUpdate(id, tracker, {
         new: true
     })
 
@@ -62,11 +58,11 @@ async function update(id: String, tracker: Tracker) {
 }
 
 async function deleteTracker(id: String) {
-    const deleted = await trackerModel.findOne({ id })
+    const deleted = await trackerModel.findById( id)
 
     if (!deleted) throw `${id} not found`
 
-    await trackerModel.findOneAndDelete({id: deleted.id})
+    await trackerModel.findByIdAndDelete(id)
 }
 
 async function getTrackers(username: String) {

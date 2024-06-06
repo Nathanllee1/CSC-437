@@ -53,6 +53,7 @@ __export(trackers_exports, {
 module.exports = __toCommonJS(trackers_exports);
 var import_express = require("express");
 var import_tracker_svc = __toESM(require("../services/tracker-svc"));
+var import_text = require("../text");
 const router = (0, import_express.Router)();
 router.get("/alltrackers/:username", (req, res) => __async(void 0, null, function* () {
   const { username } = req.params;
@@ -87,11 +88,12 @@ router.delete("/:trackerid", (req, res) => __async(void 0, null, function* () {
   res.json(deleted);
 }));
 router.post("/", (req, res) => __async(void 0, null, function* () {
-  const newProfile = req.body;
-  const profile = yield import_tracker_svc.default.create(newProfile).catch((err) => {
+  const newTracker = req.body;
+  const createdTracker = yield import_tracker_svc.default.create(newTracker).catch((err) => {
     res.status(500).send(err);
   });
-  res.status(201).send(profile);
+  res.status(201).send(createdTracker);
+  yield (0, import_text.sendSMS)(newTracker.phoneNumber, `New tracker created`);
 }));
 router.get("/", (req, res) => __async(void 0, null, function* () {
   const profiles = yield import_tracker_svc.default.index().catch((err) => {

@@ -7,8 +7,10 @@ import update from "./mvu/update";
 import { Hero } from "./components/hero";
 import { html } from "lit";
 import { LoginFormElement } from "./components/login-form";
-import { ProfileView } from "./views/profile-view";
+import { ProfileView } from "./views/tracker-view";
 import { TrackerEdit } from "./views/tracker-editor";
+import { Trailheads } from "./views/trailheads";
+import { RequestTrailhead } from "./views/tracker-creator";
 
 
 const routes: Switch.Route[] = [
@@ -40,6 +42,18 @@ const routes: Switch.Route[] = [
         view: (params: Switch.Params) => html`
             <tracker-edit tracker=${params.id}></tracker-edit>
         `
+    },
+    {
+        path: "/app/request",
+        view: () => html`
+            <trailhead-list></trailhead-list>
+        `
+    },
+    {
+        path: "/app/request/:id",
+        view: (params: Switch.Params) => html`
+            <trailhead-request trailhead=${params.id}></trailhead-request>
+        `
     }
 
 ]
@@ -69,7 +83,9 @@ define({
     },
     "main-login": LoginFormElement,
     "profile-view": ProfileView,
-    "tracker-edit": TrackerEdit
+    "tracker-edit": TrackerEdit,
+    "trailhead-list": Trailheads,
+    "trailhead-request": RequestTrailhead
 });
 
 // @ts-ignore

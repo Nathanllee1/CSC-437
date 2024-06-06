@@ -1,5 +1,6 @@
 import { Router } from "express";
 import tracker from "../services/tracker-svc"
+import { sendSMS } from "../text";
 
 const router = Router();
 
@@ -50,13 +51,15 @@ router.delete("/:trackerid", async (req, res) => {
 })
 
 router.post("/", async (req, res) => {
-    const newProfile = req.body;
+    const newTracker = req.body;
 
-    const profile = await tracker.create(newProfile).catch(err => {
+    const createdTracker = await tracker.create(newTracker).catch(err => {
         res.status(500).send(err)
     })
 
-    res.status(201).send(profile)
+    res.status(201).send(createdTracker)
+
+    await sendSMS(newTracker.phoneNumber, `New tracker created`)
 })
 
 router.get("/", async (req, res) => {

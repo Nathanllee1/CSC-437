@@ -8,3 +8,4 @@ export type Msg =
         onSuccess: () => void, 
         onFailure: (error: Error) => void }]
     | ["get-user"]
+    | ["new-tracker", {tracker: Tracker, onSuccess: () => void}]

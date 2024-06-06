@@ -43,11 +43,6 @@ __export(tracker_svc_exports, {
 module.exports = __toCommonJS(tracker_svc_exports);
 var import_mongoose = require("mongoose");
 const trackerSchema = new import_mongoose.Schema({
-  id: {
-    type: String,
-    required: true,
-    trim: true
-  },
   userId: {
     type: String,
     required: true,
@@ -57,7 +52,7 @@ const trackerSchema = new import_mongoose.Schema({
     type: String,
     required: true
   },
-  dates: [String],
+  dates: String,
   partySize: {
     type: Number,
     required: true
@@ -70,7 +65,7 @@ function index() {
 }
 function get(id) {
   return __async(this, null, function* () {
-    const list = yield trackerModel.find({ id }).catch((err) => {
+    const list = yield trackerModel.findById(id).catch((err) => {
       throw `${id} Not found`;
     });
     return list;
@@ -82,10 +77,10 @@ function create(tracker) {
 }
 function update(id, tracker) {
   return __async(this, null, function* () {
-    const found = yield trackerModel.findOne({ id });
+    const found = yield trackerModel.findById(id);
     if (!found)
       throw `${id} not found`;
-    const updated = yield trackerModel.findOneAndUpdate({ id }, tracker, {
+    const updated = yield trackerModel.findByIdAndUpdate(id, tracker, {
       new: true
     });
     if (!updated)
@@ -95,10 +90,10 @@ function update(id, tracker) {
 }
 function deleteTracker(id) {
   return __async(this, null, function* () {
-    const deleted = yield trackerModel.findOne({ id });
+    const deleted = yield trackerModel.findById(id);
     if (!deleted)
       throw `${id} not found`;
-    yield trackerModel.findOneAndDelete({ id: deleted.id });
+    yield trackerModel.findByIdAndDelete(id);
   });
 }
 function getTrackers(username) {
